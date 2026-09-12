@@ -43,7 +43,31 @@ jobs:
         # away on any Android phone with "install from unknown sources"
         # allowed. Good for a working prototype. If you later want a
         # release build, that needs a signing keystore set up first.
-        run: flutter build apk --debug
+        #
+        # Output is teed to a file (in addition to the normal console) and
+        # the tail of it is written to the job summary on failure, since
+        # the job summary is retrievable via the API even when raw step
+        # logs are not.
+        run: |
+          set -o pipefail
+          flutter build apk --debug 2>&1 | tee /tmp/build-output.log
+
+      - name: Surface build failure in job summary
+        if: failure()
+        run: |
+          echo "## Build failed — last 150 lines of output" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          tail -n 150 /tmp/build-output.log >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload build logs (always, for debugging)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: /tmp/build-output.log
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
