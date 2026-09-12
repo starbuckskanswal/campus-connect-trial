@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>718027991220-u0olaqt6p3f57fcv6qtqvjgrmomcnisa.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.718027991220-u0olaqt6p3f57fcv6qtqvjgrmomcnisa</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>718027991220-uqptrqd6q88vb9n1e5lgc26qtla81kp7.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCElOMKMSxkXNBOPt_9M_89gfLdOfxgiaw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>718027991220</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.stephenscalender2024.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>stephen-s-calendar</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stephen-s-calendar.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:718027991220:ios:a026cdc78c192237918fe1</string>
+	<key>DATABASE_URL</key>
+	<string>https://stephen-s-calendar-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

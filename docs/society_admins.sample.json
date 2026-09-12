@@ -1,0 +1,20 @@
+[
+  {
+    "docId": "quizclub@college.edu",
+    "email": "quizclub@college.edu",
+    "society": "Quiz Club",
+    "active": true
+  },
+  {
+    "docId": "robotics@college.edu",
+    "email": "robotics@college.edu",
+    "society": "Robotics Society",
+    "active": true
+  },
+  {
+    "docId": "dramatics@college.edu",
+    "email": "dramatics@college.edu",
+    "society": "Dramatics Society",
+    "active": true
+  }
+]

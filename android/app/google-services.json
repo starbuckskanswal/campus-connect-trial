@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1023421054374",
+    "project_id": "campus-connect-38daf",
+    "storage_bucket": "campus-connect-38daf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023421054374:android:295d5c0dbbf41acec46367",
+        "android_client_info": {
+          "package_name": "com.tic.eventscalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023421054374-vg9oeoqjvjmgufg86tpkgpil4mbhav2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tic.eventscalendar",
+            "certificate_hash": "7fae79fcae729e43932223459f6f92d3e24ec2b0"
+          }
+        },
+        {
+          "client_id": "1023421054374-k2l28goqkrk1e2es15q7e1osv3rc4jm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_W0koh2oLwIwta-lFuNoA8TmxMja54CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023421054374-k2l28goqkrk1e2es15q7e1osv3rc4jm4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023421054374-dsitpfqkh83u3qp3ike6vqskqimkh2v5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brianabr.eventscalendar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

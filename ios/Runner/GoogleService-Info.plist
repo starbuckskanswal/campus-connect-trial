@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1023421054374-dsitpfqkh83u3qp3ike6vqskqimkh2v5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1023421054374-dsitpfqkh83u3qp3ike6vqskqimkh2v5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAE4jcNzO07cEfu0Uoe2xLBVDBPZe4VHFc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1023421054374</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.brianabr.eventscalendar</string>
+	<key>PROJECT_ID</key>
+	<string>campus-connect-38daf</string>
+	<key>STORAGE_BUCKET</key>
+	<string>campus-connect-38daf.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1023421054374:ios:66ddba8aa9c2a4d5c46367</string>
+</dict>
+</plist>

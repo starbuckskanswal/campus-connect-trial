@@ -1,0 +1,12 @@
+[
+  { "docId": "st-stephens", "name": "St. Stephen's College", "shortCode": "SSC", "emailDomains": ["ststephens.edu"], "active": true },
+  { "docId": "hindu-college", "name": "Hindu College", "shortCode": "HC", "emailDomains": ["hinducollege.ac.in"], "active": true },
+  { "docId": "srcc", "name": "Shri Ram College of Commerce", "shortCode": "SRCC", "emailDomains": ["srcc.edu"], "active": true },
+  { "docId": "miranda-house", "name": "Miranda House", "shortCode": "MH", "emailDomains": ["mirandahouse.ac.in"], "active": true },
+  { "docId": "lsr", "name": "Lady Shri Ram College for Women", "shortCode": "LSR", "emailDomains": ["lsr.edu.in"], "active": true },
+  { "docId": "hansraj", "name": "Hansraj College", "shortCode": "HRC", "emailDomains": ["hansrajcollege.ac.in"], "active": true },
+  { "docId": "kirori-mal", "name": "Kirori Mal College", "shortCode": "KMC", "emailDomains": ["kmcollegedu.ac.in"], "active": true },
+  { "docId": "ramjas", "name": "Ramjas College", "shortCode": "RC", "emailDomains": ["ramjascollege.edu"], "active": true },
+  { "docId": "daulat-ram", "name": "Daulat Ram College", "shortCode": "DRC", "emailDomains": ["daulatramcollege.co.in"], "active": true },
+  { "docId": "venky", "name": "Sri Venkateswara College", "shortCode": "SVC", "emailDomains": ["svc.ac.in"], "active": true }
+]

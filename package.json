@@ -1,0 +1,13 @@
+{
+  "name": "campus-connect-admin-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Utility scripts for Campus Connect Firebase admin tasks.",
+  "scripts": {
+    "sync:society-admins": "node scripts/sync_society_admins.js",
+    "list:society-admins": "node scripts/list_society_admins.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0"
+  }
+}

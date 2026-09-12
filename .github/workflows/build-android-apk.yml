@@ -1,0 +1,53 @@
+name: Build Android APK
+
+# Builds an installable APK you can download from the workflow run,
+# no local Flutter/Android install needed.
+#
+# NOTE: this variant of the repo has login bypassed in
+# lib/main.dart (AuthenticationWrapper) so the APK opens straight into
+# the full app UI for demo/preview purposes — see the comment there.
+#
+# Runs automatically on every push to main, and can also be triggered
+# manually from the Actions tab (Run workflow button) whenever you want
+# a fresh build without pushing a commit.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build debug APK
+        # Debug build: no release signing key needed, installs straight
+        # away on any Android phone with "install from unknown sources"
+        # allowed. Good for a working prototype. If you later want a
+        # release build, that needs a signing keystore set up first.
+        run: flutter build apk --debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: campus-connect-noauth-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 30

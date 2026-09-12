@@ -1,0 +1,175 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function normalizedEmail() {
+      return signedIn() && request.auth.token.email != null
+          ? request.auth.token.email.lower()
+          : '';
+    }
+
+    function adminDocPath() {
+      return /databases/$(database)/documents/society_admins/$(normalizedEmail());
+    }
+
+    function adminDoc() {
+      return get(adminDocPath()).data;
+    }
+
+    // An allowlisted admin must exist, be active, and be approved.
+    // `status` defaults to 'active' when absent so pre-existing allowlist
+    // entries (created before self-registration existed) keep working.
+    function isAllowlistedAdmin() {
+      return signedIn() &&
+          normalizedEmail() != '' &&
+          exists(adminDocPath()) &&
+          adminDoc().active != false &&
+          (!('status' in adminDoc()) || adminDoc().status == 'active');
+    }
+
+    function adminSociety() {
+      return adminDoc().society;
+    }
+
+    function adminCollege() {
+      return 'college' in adminDoc() ? adminDoc().college : '';
+    }
+
+    function validEventPayload(data) {
+      return data.keys().hasAll([
+            'email',
+            'createdBy',
+            'title',
+            'subtitle',
+            'society',
+            'college',
+            'visibility',
+            'location',
+            'datetime',
+            'registrationDeadline',
+            'description',
+            'reglink',
+            'imageUrl',
+            'posterUrl'
+          ]) &&
+          data.email is string &&
+          data.createdBy is string &&
+          data.title is string &&
+          data.subtitle is string &&
+          data.society is string &&
+          data.college is string && data.college.size() > 0 &&
+          data.visibility in ['college', 'du_wide'] &&
+          data.location is string &&
+          data.datetime is timestamp &&
+          data.registrationDeadline is timestamp &&
+          data.description is string &&
+          data.reglink is string &&
+          data.imageUrl is string &&
+          data.posterUrl is string;
+    }
+
+    function emailMatchesUser(data) {
+      return data.email.lower() == normalizedEmail() &&
+          data.createdBy.lower() == normalizedEmail();
+    }
+
+    function societyMatchesAllowlist(data) {
+      return adminSociety() == null ||
+          adminSociety() == '' ||
+          data.society == adminSociety();
+    }
+
+    // A POC can only publish events under the college they registered
+    // under. `du_wide` visibility is still tagged with the POC's own
+    // college for attribution/moderation, so this check applies either way.
+    function collegeMatchesAllowlist(data) {
+      return adminCollege() == null ||
+          adminCollege() == '' ||
+          data.college == adminCollege();
+    }
+
+    function validUserProfile(data) {
+      return data.keys().hasOnly(['uid', 'email']) &&
+          data.uid == request.auth.uid &&
+          data.email == request.auth.token.email;
+    }
+
+    // Self-registration payload: a prospective POC creates their own
+    // society_admins doc, but it always lands as 'pending' and inactive
+    // for posting purposes until a real admin approves it out-of-band
+    // (e.g. via the admin portal or a manual console edit).
+    function validSelfRegistration(data) {
+      return data.keys().hasAll(['email', 'society', 'college', 'status', 'active']) &&
+          data.keys().hasOnly(['email', 'society', 'college', 'status', 'active', 'requestedAt']) &&
+          data.email.lower() == normalizedEmail() &&
+          data.society is string && data.society.size() > 0 &&
+          data.college is string && data.college.size() > 0 &&
+          data.status == 'pending' &&
+          data.active == false;
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+
+      allow create: if isAllowlistedAdmin() &&
+          validEventPayload(request.resource.data) &&
+          emailMatchesUser(request.resource.data) &&
+          societyMatchesAllowlist(request.resource.data) &&
+          collegeMatchesAllowlist(request.resource.data);
+
+      allow update: if isAllowlistedAdmin() &&
+          validEventPayload(request.resource.data) &&
+          resource.data.email.lower() == normalizedEmail() &&
+          request.resource.data.email == resource.data.email &&
+          request.resource.data.createdBy == resource.data.createdBy &&
+          societyMatchesAllowlist(request.resource.data) &&
+          collegeMatchesAllowlist(request.resource.data);
+
+      allow delete: if isAllowlistedAdmin() &&
+          resource.data.email.lower() == normalizedEmail();
+    }
+
+    // Registry of DU colleges the app knows about. Public read so the
+    // app/portal can populate college pickers; writes stay console-only
+    // (curated list, not user-editable) for now.
+    match /colleges/{collegeId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /society_admins/{adminEmail} {
+      allow get: if signedIn() && adminEmail == normalizedEmail();
+      allow list: if false;
+
+      // Self-registration: a signed-in user may create ONLY their own
+      // doc, and only in the unapproved 'pending' state. They can never
+      // create it as active, and can never flip an existing doc's status
+      // themselves (update stays fully blocked below).
+      allow create: if signedIn() &&
+          adminEmail == normalizedEmail() &&
+          !exists(adminDocPath()) &&
+          validSelfRegistration(request.resource.data);
+
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    match /nsysuclubs/{clubId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /Users/{userDocId} {
+      allow create: if signedIn() &&
+          validUserProfile(request.resource.data);
+
+      allow read, delete: if signedIn() && resource.data.uid == request.auth.uid;
+      allow update: if signedIn() &&
+          resource.data.uid == request.auth.uid &&
+          validUserProfile(request.resource.data);
+    }
+  }
+}

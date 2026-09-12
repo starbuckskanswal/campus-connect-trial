@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Connect Admin Portal</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Campus Connect</p>
+          <h1>Society POC Portal</h1>
+        </div>
+        <div class="auth-actions">
+          <button id="loginButton" class="btn btn-primary">Sign in with Google</button>
+          <button id="logoutButton" class="btn btn-ghost" hidden>Sign out</button>
+        </div>
+      </header>
+
+      <section id="statusBanner" class="status-banner">Sign in to continue.</section>
+
+      <main id="portalContent" class="portal-content" hidden>
+        <section class="panel form-panel">
+          <div class="panel-head">
+            <h2 id="formTitle">Publish Event</h2>
+            <button id="clearFormButton" class="btn btn-ghost" hidden>Cancel Edit</button>
+          </div>
+
+          <p id="collegeBadge" class="college-badge"></p>
+
+          <form id="eventForm" class="event-form">
+            <label>
+              Event Name
+              <input id="title" type="text" required />
+            </label>
+
+            <label>
+              Society
+              <select id="society" required>
+                <option value="">Select society</option>
+              </select>
+            </label>
+
+            <label>
+              One-line Summary
+              <input id="subtitle" type="text" required />
+            </label>
+
+            <label class="checkbox-row">
+              <input id="duWideEvent" type="checkbox" />
+              DU-wide event (show to students across all colleges, not just mine)
+            </label>
+
+            <div class="row two">
+              <label>
+                Event Date
+                <input id="eventDate" type="date" required />
+              </label>
+              <label>
+                Event Time
+                <input id="eventTime" type="time" required />
+              </label>
+            </div>
+
+            <label>
+              Location
+              <input id="location" type="text" required />
+            </label>
+
+            <label>
+              Registration Form URL
+              <input id="reglink" type="text" placeholder="Optional: paste a form link or leave blank" />
+            </label>
+
+            <label>
+              Registration Deadline
+              <input id="registrationDeadline" type="datetime-local" required />
+            </label>
+
+            <label>
+              Description
+              <textarea id="description" rows="4" required></textarea>
+            </label>
+
+            <label>
+              Event Poster
+              <input id="poster" type="file" accept="image/*" />
+            </label>
+
+            <div id="posterPreviewWrap" class="poster-preview" hidden>
+              <img id="posterPreview" alt="Poster preview" />
+            </div>
+
+            <button id="submitButton" type="submit" class="btn btn-primary wide">Publish Event</button>
+          </form>
+        </section>
+
+        <section class="panel list-panel">
+          <div class="panel-head">
+            <h2>My Published Events</h2>
+            <p id="liveState" class="live-state">Realtime sync active</p>
+          </div>
+          <div id="eventsList" class="events-list">
+            <p class="empty">No events yet.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      window.CAMPUS_CONNECT_FIREBASE_CONFIG = {
+        apiKey: 'AIzaSyAJ7WN9oa2Zkw_0c-Ho_tP-wUcM4fyqvwo',
+        authDomain: 'campus-connect-38daf.firebaseapp.com',
+        projectId: 'campus-connect-38daf',
+        storageBucket: 'campus-connect-38daf.firebasestorage.app',
+        messagingSenderId: '1023421054374',
+        appId: '1:1023421054374:web:92ce5d48a3aabefcc46367',
+      };
+    </script>
+    <script type="module" src="./app.js?v=20260323-2"></script>
+  </body>
+</html>
